@@ -13,8 +13,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".AppsListActivity"
-            android:exported="false"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
+            android:exported="false"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

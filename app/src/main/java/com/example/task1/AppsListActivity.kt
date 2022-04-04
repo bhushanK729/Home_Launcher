@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ImageView
@@ -18,7 +19,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.RecyclerView
 
 
-class AppsListActivity : Activity() {
+class AppsListActivity : AppCompatActivity() {
 
     private var manager: PackageManager? = null
     private var apps: MutableList<AppDetail>? = null
@@ -29,6 +30,11 @@ class AppsListActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_apps_list)
         recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        loadApplication()
+
         val searchView = findViewById<SearchView>(R.id.search)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
@@ -37,11 +43,10 @@ class AppsListActivity : Activity() {
 
             override fun onQueryTextChange(query: String?): Boolean {
                 Log.d("onQueryTextChange", "query: " + query)
-                adapter.filter?.filter(query)
+                adapter.filter.filter(query)
                 return true
             }
         })
-        loadApplication()
     }
 
     private fun loadApplication() {
